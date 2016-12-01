@@ -1,0 +1,5 @@
+\beamer@endinputifotherversion {3.33pt}
+\select@language {USenglish}
+\beamer@sectionintoc {2}{Database Management}{4}{0}{1}
+\beamer@sectionintoc {3}{Text Processing}{7}{0}{2}
+\beamer@sectionintoc {4}{Modelling the Data}{9}{0}{3}
