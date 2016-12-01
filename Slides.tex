@@ -21,6 +21,7 @@
   }%
 }
 
+
 \DeclareMathOperator*{\plim}{plim}
 
 \setbeamertemplate{footline}[frame number]
@@ -137,57 +138,48 @@
 
 \begin{frame}{Cleaning the strings}
 
-\vspace{-0.5cm}
+\begin{itemize}
+\item Original text string - Label: Rejected
+\end{itemize}
 
+\Wider{
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{Text_Processing/1.png}
 \label{heat}
 \end{figure}
+}
 
 \begin{itemize}
 \item Splitting text into tokens
 \end{itemize}
 
-\vspace{-0.5cm}
-
+\Wider{
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{Text_Processing/2.png}
 \label{heat}
 \end{figure}
+}
 
 \begin{itemize}
 \item Removing stopwords
 \end{itemize}
 
-\vspace{-0.5cm}
-
+\Wider{
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{Text_Processing/3.png}
 \label{heat}
 \end{figure}
-
-\begin{itemize}
-\item Stemming the words and converting them into lemmas
-\end{itemize}
-
-\vspace{-0.5cm}
- 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.5]{Text_Processing/4.png}
-\label{heat}
-\end{figure}
-
+}
 
 \end{frame}
 %------------------------------------------------------------------------------%
 
 \begin{frame}{Constructing a Vectorized Representation}
 \begin{itemize}
-\item tf-idf: term frequency-inverse document frequency 
+\item tf-idf: value increases proportionally to the number of times a word appears in the document, but is offset by the frequency of the word in the corpus, which helps to adjust for the fact that some words appear more frequently in general. 
 \item Deciding on dimensionality: bi-grams, tri-grams, etc.
 	\begin{itemize}
 		\item[$\to$] Which representations do really matter?
