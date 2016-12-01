@@ -52,9 +52,9 @@
 	\item \textbf{Aim and Motivation}\\
 		\small{Working with IOM and Refugee News Flood}
 	\item \textbf{Database Management}\\
-	    \small{UI, Data Types and MongoDB}\\
+	    \small{UI, Architecture, Persistance}\\
 	\item \textbf{Text Processing}\\
-	    \small{String Cleaning, Vectorization and TF-IDF Representations}
+	    \small{String Cleaning, Vectorization and tf-idf Representations}
 	\item \textbf{Modelling the Data} \\
 	    \small{Clustering and Cross-Validated Classifiers}  
 \end{enumerate}	
@@ -63,22 +63,27 @@
 
 
 %------------------------------------------------------------------------------%
-\begin{frame}{Motivation}
+\begin{frame}{Motivation - Missing Migrant Project (MMP)}
 
-\begin{itemize}
+%\begin{itemize}
 
-\item Ever since the start of the refugee crisis there has been a steady increase in news reports and rumors regarding missing migrants.
+%\item Refugee crisis, war in Syria $\Rightarrow$ increase in news reports and rumors regarding missing migrants.
+%\item Awareness and efficient allocation of resources 
+%\item International Organisation for Migration (IOM)
 
-	\begin{itemize}
-		\item Not even factoring in Donald Trump's Twitter activity
-	\end{itemize}
+%	\begin{itemize}
+%	\item[$\to$] Missing Migrant Project
+%	\end{itemize}
 
-\item In order to efficiently allocate resources and to help people in nedd, it is crucial to determine hot spots based on reliable data.
-\item Cooperation with the International Organisation for Migration (IOM)
+%\end{itemize}
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.225]{MMP.png}
+\label{heat}
+\end{figure}
 
-\end{itemize}
-
+\href{https://missingmigrants.iom.int/}{\beamergotobutton{Link}}
 
 \end{frame}
 
@@ -96,13 +101,15 @@
 		\item[$\rightarrow$] Missing Migrant Project (MMP) data
 	\end{itemize}
 
-\item Datamanagement Challenges:
+\item Data Management Challenges:
 
 	\begin{itemize}
 		\item[$\rightarrow$] One schema is not enough (different data types)
+		\item[$\rightarrow$] Online data integration
+		\item[$\rightarrow$] Pulling from different news feeds
 	\end{itemize}
 	
-\item Datamanagement Solution: MongoDB	
+\item Data Management Solution: MongoDB	
 
 \end{itemize}
 \end{frame}
@@ -110,24 +117,10 @@
 
 %------------------------------------------------------------------------------%
 
-\begin{frame}{MongoDB}
+\begin{frame}{Architecture and Persistance}
 \begin{itemize}
 \item MongoDB has several advantages:
 \end{itemize}
-\end{frame}
-
-%------------------------------------------------------------------------------%
-
-\begin{frame}{UI and Automated Labelling Process}
-
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.25]{UI.png}
-\label{heat}
-\end{figure}
-
-\href{http://migrantnews-web.s3-website-eu-west-1.amazonaws.com/}{\beamergotobutton{Link}}
-
 \end{frame}
 
 %------------------------------------------------------------------------------%
@@ -163,7 +156,7 @@
 }
 
 \begin{itemize}
-\item Removing stopwords
+\item Removing stopwords and lemma transformation
 \end{itemize}
 
 \Wider{
@@ -179,7 +172,8 @@
 
 \begin{frame}{Constructing a Vectorized Representation}
 \begin{itemize}
-\item tf-idf: value increases proportionally to the number of times a word appears in the document, but is offset by the frequency of the word in the corpus, which helps to adjust for the fact that some words appear more frequently in general. 
+\item Count Vectorization
+\item tf-idf: re-weighting by proportion of times a word appears in the document vs. corpus
 \item Deciding on dimensionality: bi-grams, tri-grams, etc.
 	\begin{itemize}
 		\item[$\to$] Which representations do really matter?
@@ -192,58 +186,95 @@
 %------------------------------------------------------------------------------%
 \section{Modelling the Data}
 %------------------------------------------------------------------------------%
-\begin{frame}{The Problem}
+%\begin{frame}{The Problem}
+%\begin{itemize}
+
+%\item Easy/accelerated classification of relevant and irrelevant news
+%\item Problems:
+%	\begin{enumerate}
+%		\item Redundancy: Many observations cover the same events
+%		\item Sensitivity: Hard classification problem
+%	\end{enumerate}
+
+%\item Solutions: 
+%	\begin{enumerate}
+%		\item Hierarchical clustering using DBSCAN
+%		\item Ensemble Methods: Random Forest
+%	\end{enumerate}
+
+%\end{itemize}
+%\end{frame}
+
+%------------------------------------------------------------------------------%
+\begin{frame}{Building a First Classification Model}
+
 \begin{itemize}
-
-\item Easy/accelerated classification of relevant and irrelevant news
-\item Problems:
-	\begin{enumerate}
-		\item Redundancy: Many observations cover the same events
-		\item Sensitivity: Hard classification problem
-	\end{enumerate}
-
-\item Solutions: 
-	\begin{enumerate}
-		\item Hierarchical clustering using DBSCAN
-		\item Ensemble Methods: Random Forest
-	\end{enumerate}
+	\item Many potential classifiers available: Logistic Regression, Naive Bayes, SVM,Decision Tree, Random Forest and NNs
+	\item Idea: Start with MVP (minimal viable product) to grasp the problem $\to$ Generative Model: Naive Bayes
+	
+	$$ p(t_j|x_i) = p(x_i|t_j) p(t_j) p(x_i)$$
+	
+	\begin{itemize}
+		\item Assumption: Treat observations as iid $\to$ likelihood factorizes
+	\end{itemize}
+	
+	
+	$$p(x|t) = \prod_{k=1}^d p(x_k|t_j)$$
 
 \end{itemize}
+\end{frame}
+
+%------------------------------------------------------------------------------%
+\begin{frame}{Model Evaluation}
+
+\begin{itemize}
+	\item Prior choice  
+	\item overfitting  
+	\item error evaluation depends on problem 
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------------------------------%
+\begin{frame}{Adding Complexity: Random Forests}
+
+\begin{itemize}
+	\item Theory
+\end{itemize}
+\end{frame}
+
+
+%------------------------------------------------------------------------------%
+
+\begin{frame}{Automated Labelling Process and Lean UX}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.25]{UI.png}
+\label{heat}
+\end{figure}
+
+\href{http://migrantnews-web.s3-website-eu-west-1.amazonaws.com/}{\beamergotobutton{Link}}
+
 \end{frame}
 
 %------------------------------------------------------------------------------%
 \begin{frame}{Clustering using DBSCAN - Density-based spatial clustering of applications with noise}
 
 \begin{itemize}
-	\item Density-based clustering algorithm: core points, (density-)reachable points and outliers
-	\item Core point forms cluster together with all reachable points (core or non-core).
-	\item Clusters contain at least one core point; non-core points can be part of a cluster, but they form its "edge", since they cannot be used to reach more points.
-	\item Applied to TF-IDF matrix and parametrized with difference tolerance 
+    \item Density based clustering algorithm that takes as parameters $\epsilon$ and $n$ minimum points in a cluster. 
+    \item DBSCAN allows points to be marked as noise - not in any cluster
+    \item Do not need to specify number of clusters before running DBSCAN
+    \item Intention is to cluster similar stories/tweets using vectorized presentation. 
 \end{itemize}
 
 \end{frame}
 
 %------------------------------------------------------------------------------%
-\begin{frame}{Building a First Classification Model}
+\begin{frame}{Problems and Improving Classification}
 
 \begin{itemize}
-	\item Many potential classifiers available: Logistic Regression, Naive Bayes, SVM,Decision Tree, Random Forest and Neural Networks
-	\item Idea: Start with MVP (minimal viable product) to grasp the problem $\to$ Generative Model: Naive Bayes
+	\item Sensitivity to specific "small" words: e.g. not
 \end{itemize}
-\end{frame}
-
-%------------------------------------------------------------------------------%
-\begin{frame}{Problems in Classification}
-
-\begin{itemize}
-	\item Hyperparameter choices: 5-fold cross-validation and parameter grid search
-	\item Adding non-parametric complexity: Random Forest
-\end{itemize}
-
-\end{frame}
-
-%------------------------------------------------------------------------------%
-\begin{frame}{Improving Classification}
 
 \begin{itemize}
 	\item Hyperparameter choices: 5-fold cross-validation and parameter grid search
