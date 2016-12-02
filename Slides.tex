@@ -11,6 +11,7 @@
 \usepackage{graphicx}
 \usepackage{lmodern}
 
+
 \usepackage[round, authoryear]{natbib}
 
 \newcommand\Wider[2][3em]{%
@@ -209,7 +210,8 @@
 \begin{frame}{Building a First Classification Model}
 
 \begin{itemize}
-	\item Many potential classifiers available: Logistic Regression, Naive Bayes, SVM,Decision Tree, Random Forest and NNs
+	\item Many potential classifiers available: Logistic Regression, Naive Bayes, SVM,
+Decision Tree, Random Forest and NNs
 	\item Idea: Start with MVP (minimal viable product) to grasp the problem $\to$ Generative Model: Naive Bayes
 	
 	$$ p(t_j|x_i) = p(x_i|t_j) p(t_j) p(x_i)$$
@@ -237,11 +239,17 @@
 %------------------------------------------------------------------------------%
 \begin{frame}{Adding Complexity: Random Forests}
 
-\begin{itemize}
-	\item Theory
-\end{itemize}
-\end{frame}
+\begin{figure}
+\centering
 
+\includegraphics[scale=0.5]{randomforestvis.png}
+\label{randomforest}
+
+\includegraphics[scale=0.5]{randomforest.png}
+
+\end{figure}
+
+\end{frame}
 
 %------------------------------------------------------------------------------%
 
